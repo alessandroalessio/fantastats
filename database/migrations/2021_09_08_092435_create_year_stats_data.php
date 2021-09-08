@@ -32,6 +32,7 @@ class CreateYearStatsData extends Migration
             $table->integer('amm');
             $table->integer('esp');
             $table->integer('au');
+            $table->string('year');
             $table->timestamps();
         });
     }
