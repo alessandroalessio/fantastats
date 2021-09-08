@@ -21,4 +21,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/import-year-stats-data', function () {
+    return view('admin/import-year-stats-data');
+})->middleware(['auth'])->name('import-year-stats-data');
+
 require __DIR__.'/auth.php';
