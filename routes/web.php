@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExcelImporter;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,5 +25,7 @@ Route::get('/dashboard', function () {
 Route::get('/import-year-stats-data', function () {
     return view('admin/import-year-stats-data');
 })->middleware(['auth'])->name('import-year-stats-data');
+
+Route::post('/do-import-year-stats-data', [ExcelImporter::class, 'uploadFile'])->name('import-year-stats-data');
 
 require __DIR__.'/auth.php';

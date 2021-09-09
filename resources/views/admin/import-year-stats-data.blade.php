@@ -10,10 +10,11 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <p>Upload fantacalcio.it stats file for Years</p>
-                    <form action="#">
-                        <div class="grid grid-flow-col auto-cols-max md:auto-cols-min">
+                    <form action="/do-import-year-stats-data" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="grid grid-cols-6 gap-4 my-8">
                             <div><label>{{ __('Year') }}</label></div>
-                            <div>
+                            <div class="col-span-4">
                                 <select name="year">
                                     <?php for ( $y=2015; $y<=2035; $y++ ) :
                                         $y_end_season = substr($y+1, 2, 2);  ?>
@@ -22,14 +23,12 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="grid grid-flow-col auto-cols-max md:auto-cols-min">
+                        <div class="grid grid-cols-6 gap-4 my-8">
                             <div><label>File Excel</label></div>
-                            <div>
-                                <input type="file" name="excel_file">
-                            </div>
+                            <div class="col-span-4"><input type="file" name="excel_file"></div>
                         </div>
-                        <div class="grid grid-flow-col auto-cols-max md:auto-cols-min">
-                            <div><input type="submit" value="Upload"></div>
+                        <div>
+                            <div><input type="submit" value="Upload" class="inline-block rounded-lg px-4 py-2 bg-blue-500 text-blue-100"></div>
                         </div>
 
                     </form>
