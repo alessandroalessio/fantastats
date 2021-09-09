@@ -26,8 +26,8 @@ class CreateYearStatsData extends Migration
             $table->integer('gs');
             $table->integer('rp');
             $table->integer('rc');
-            $table->integer('r+');
-            $table->integer('r-');
+            $table->integer('rf');
+            $table->integer('rs');
             $table->integer('ass');
             $table->integer('amm');
             $table->integer('esp');
