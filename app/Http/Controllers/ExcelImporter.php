@@ -25,6 +25,9 @@ class ExcelImporter extends Controller
             // Upload file
             $location->putFileAs('import/Statistiche_Fantacalcio', $request->file('excel_file'), $filename);
 
+            // ReadExcel
+            $this->readExcel( storage_path('app/import/Statistiche_Fantacalcio/').$filename );
+
             Session::flash('message','Upload Successfully.');
             Session::flash('alert-class', 'alert-success');
         }else{
@@ -33,5 +36,9 @@ class ExcelImporter extends Controller
         }
 
         return redirect('import-year-stats-data');
+    }
+
+    public function readExcel($srcExcel){
+        dd($srcExcel);
     }
 }
