@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class YearsStatsData extends Model
+class YearsPlayersAvailable extends Model
 {
     use HasFactory;
 
-    protected $table = 'year_stats_data';
+    protected $table = 'years_players_availables';
     protected $primaryKey = 'id';
     public $incrementing = true;
 

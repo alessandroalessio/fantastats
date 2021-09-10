@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExcelImporter;
+use App\Models\YearsStatsData;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,10 +23,23 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/view-player-stats-data', function () {
+    $YSD = new YearsStatsData;
+    return view('view-player-stats-data')->with('YSD', $YSD);
+})->middleware(['auth'])->name('view-player-stats-data');
+
+/**
+ * Administration Routes
+ */
+
 Route::get('/import-year-stats-data', function () {
     return view('admin/import-year-stats-data');
 })->middleware(['auth'])->name('import-year-stats-data');
-
 Route::post('/do-import-year-stats-data', [ExcelImporter::class, 'uploadFile'])->name('import-year-stats-data');
+
+Route::get('/import-year-players', function () {
+    return view('admin/import-year-players');
+})->middleware(['auth'])->name('import-year-players');
+Route::post('/do-import-year-players', [ExcelImporter::class, 'uploadFilePlayers'])->name('import-year-players');
 
 require __DIR__.'/auth.php';

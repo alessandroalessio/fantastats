@@ -8,16 +8,21 @@ use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use App\Models\YearsStatsData;
+use App\Models\YearsPlayersAvailable;
+
+ini_set('max_execution_time', 180); //3 minutes
 
 class ExcelImporter extends Controller
 {
-    public function uploadFile(Request $request){
+    public function uploadFile(Request $request, $subFolder='Statistiche_Fantacalcio'){
         
         // Validation
         $request->validate([
             'excel_file' => 'required|mimes:csv,xls,xlsx|max:2048'
         ]); 
 
+        $message = '';
+        $alert_class = '';
         if($request->file('excel_file')) {
             $file = $request->file('excel_file');
             $filename = $file->getClientOriginalName();
@@ -26,22 +31,22 @@ class ExcelImporter extends Controller
             $location = Storage::disk('local');
 
             // Upload file
-            $location->putFileAs('import/Statistiche_Fantacalcio', $request->file('excel_file'), $filename);
+            $location->putFileAs('import/'.$subFolder, $request->file('excel_file'), $filename);
 
             // ReadExcel
-            $this->readExcel( storage_path('app/import/Statistiche_Fantacalcio/').$filename );
+            $this->readExcel( storage_path('app/import/'.$subFolder.'/').$filename, $request->input('year') );
 
-            Session::flash('message','Upload Successfully.');
-            Session::flash('alert-class', 'alert-success');
+            $message = 'Upload Successfully.';
+            $alert_class = 'alert-success';
         }else{
-            Session::flash('message','File not uploaded.');
-            Session::flash('alert-class', 'alert-danger');
+            $message = 'File not uploaded.';
+            $alert_class = 'alert-danger';
         }
 
-        return redirect('import-year-stats-data');
+        return redirect('import-year-stats-data')->with(['message' => $message, 'alert_class' => $alert_class]);
     }
 
-    public function readExcel($srcExcel){
+    public function readExcel($srcExcel, $year='2020-21'){
         
         $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
         $spreadsheet = $reader->load($srcExcel);
@@ -50,8 +55,6 @@ class ExcelImporter extends Controller
 
         foreach( $rows AS $i => $item ) :
             if ( $i>=2 ) :
-                // YearsStatsData::doImport($rows);
-                // dd(YearsStatsData::all());
                 $YearStasData = new YearsStatsData;
                 $YearStasData->fid = $item[0];
                 $YearStasData->role = $item[1];
@@ -70,11 +73,63 @@ class ExcelImporter extends Controller
                 $YearStasData->amm = $item[14];
                 $YearStasData->esp = $item[15];
                 $YearStasData->au = $item[16];
-                $YearStasData->year = '2020-21';
+                $YearStasData->year = $year;
                 $YearStasData->save();
             endif;
         endforeach;
+    }
 
-        dd($rows);
+    public function uploadFilePlayers(Request $request, $subFolder='Quotazioni'){
+        
+        // Validation
+        $request->validate([
+            'excel_file' => 'required|mimes:csv,xls,xlsx|max:2048'
+        ]); 
+
+        $message = '';
+        $alert_class = '';
+        if($request->file('excel_file')) {
+            $file = $request->file('excel_file');
+            $filename = $file->getClientOriginalName();
+
+            // File upload location
+            $location = Storage::disk('local');
+
+            // Upload file
+            $location->putFileAs('import/'.$subFolder, $request->file('excel_file'), $filename);
+
+            // ReadExcel
+            $this->readExcelPlayers( storage_path('app/import/'.$subFolder.'/').$filename );
+
+            $message = 'Upload Successfully.';
+            $alert_class = 'alert-success';
+        }else{
+            $message = 'File not uploaded.';
+            $alert_class = 'alert-danger';
+        }
+
+        return redirect('import-year-players')->with(['message' => $message, 'alert_class' => $alert_class]);
+    }
+
+    
+    public function readExcelPlayers($srcExcel){
+        
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
+        $spreadsheet = $reader->load($srcExcel);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $rows = $worksheet->toArray();
+        
+        foreach( $rows AS $i => $item ) :
+            $YearStasData = new YearsPlayersAvailable;
+            if ( $i==0 )  $YearStasData::truncate();
+            if ( $i>=2 ) :
+                // $YearStasData = new YearsPlayersAvailable;
+                $YearStasData->fid = $item[0];
+                $YearStasData->role = $item[1];
+                $YearStasData->name = $item[2];
+                $YearStasData->team = $item[3];
+                $YearStasData->save();
+            endif;
+        endforeach;
     }
 }
