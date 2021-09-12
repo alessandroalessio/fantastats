@@ -16,12 +16,36 @@
                 <div class="w-full px-1">
                     <div class="bg-white overflow-hidden shadow-sm">
                         <div class="bg-white border-b-2 border-blue-300 px-1 py-1">
-                            <?php    
-                            // $YSD::take(1)->get();
-                            foreach ($YSD::all()->take(1) as $row) {
-                                echo $row->name;
-                            }
-                            ?>
+                            <table id="view-player-stats-datatable" class="display" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>{{ __('R') }}</th>
+                                        <th>{{ __('Name') }}</th>
+                                        <th>{{ __('Team') }}</th>
+                                        <th>{{ __('Mp') }}</th>
+                                        <th>{{ __('Avg') }}</th>
+                                        <th>{{ __('FAvg') }}</th>
+                                        <th>{{ __('Gs') }}</th>
+                                        <th>{{ __('Gc') }}</th>
+                                        <th>{{ __('Ps') }}</th>
+                                        <th>{{ __('PT') }}</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                        <th>{{ __('R') }}</th>
+                                        <th>{{ __('Name') }}</th>
+                                        <th>{{ __('Team') }}</th>
+                                        <th>{{ __('Mp') }}</th>
+                                        <th>{{ __('Avg') }}</th>
+                                        <th>{{ __('FAvg') }}</th>
+                                        <th>{{ __('Gs') }}</th>
+                                        <th>{{ __('Gc') }}</th>
+                                        <th>{{ __('Ps') }}</th>
+                                        <th>{{ __('PT') }}</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
                         </div>
                     </div>    
                 </div>

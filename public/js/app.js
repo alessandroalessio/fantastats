@@ -4022,6 +4022,36 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
+$(document).ready(function () {
+  $('#view-player-stats-datatable').DataTable({
+    "ajax": {
+      "url": "/api/player-stats-data",
+      "dataSrc": ""
+    },
+    "columns": [{
+      "data": "role"
+    }, {
+      "data": "name"
+    }, {
+      "data": "team"
+    }, {
+      "data": "pg"
+    }, {
+      "data": "mv"
+    }, {
+      "data": "mf"
+    }, {
+      "data": "gf"
+    }, {
+      "data": "gs"
+    }, {
+      "data": "rp"
+    }, {
+      "data": "rc"
+    }]
+  });
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
