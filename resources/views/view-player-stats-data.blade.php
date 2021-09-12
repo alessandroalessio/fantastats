@@ -15,7 +15,7 @@
             <div class="flex mb-4">
                 <div class="w-full px-1">
                     <div class="bg-white overflow-hidden shadow-sm">
-                        <div class="bg-white border-b-2 border-blue-300 px-1 py-1">
+                        <div class="bg-white border-b-2 border-blue-300 px-3 py-3">
                             <table id="view-player-stats-datatable" class="display" style="width:100%">
                                 <thead>
                                     <tr>
