@@ -39,8 +39,8 @@ class YearsStatsData extends Model
             ->selectRaw('(SELECT ROUND(AVG(au),1) FROM year_stats_data WHERE fid=ypa.fid) AS au')
             ->selectRaw('(SELECT ROUND(AVG(gf)+AVG(rf),2) FROM year_stats_data WHERE fid=ypa.fid) AS gt');
 
-        if ( isset($params['role']) ) $players = $players->where('role', $params('role'));
-        if ( isset($params['limit']) ) $players = $players->limit($params('limit'));
+        if ( isset($params['role']) ) $players->where('role', $params['role']);
+        if ( isset($params['limit']) ) $players->limit($params['limit']);
     
         $data = $players->get();
 
@@ -90,12 +90,45 @@ class YearsStatsData extends Model
     }
 
     /**
+     * Retrieve Data Stats for a single Player
+     */
+    public function getAvailableSinglePlayerStatsData($id){
+        $players = DB::table('year_stats_data')
+            ->selectRaw('ROUND(AVG(pg),2) AS pg')
+            ->selectRaw('ROUND(AVG(mv),2) AS mv')
+            ->selectRaw('ROUND(AVG(mf),2) AS mf')
+            ->selectRaw('ROUND(AVG(gf),2) AS gf')
+            ->selectRaw('ROUND(AVG(gs),2) AS gs')
+            ->selectRaw('ROUND(AVG(rp),2) AS rp')
+            ->selectRaw('ROUND(AVG(rc),2) AS rc')
+            ->selectRaw('ROUND(AVG(rf),2) AS rf')
+            ->selectRaw('ROUND(AVG(rs),2) AS rs')
+            ->selectRaw('ROUND(AVG(ass),1) AS ass')
+            ->selectRaw('ROUND(AVG(amm),1) AS amm')
+            ->selectRaw('ROUND(AVG(esp),1) AS esp')
+            ->selectRaw('ROUND(AVG(au),1) AS au')
+            ->selectRaw('ROUND(AVG(gf)+AVG(rf),2) AS gt')
+            ->selectRaw('SUM(gf+rf) AS sum_gt')
+            ->selectRaw('SUM(pg) AS sum_pg')
+            ->where('fid', $id)
+            ->get();
+        
+        $results = [];
+        foreach( $players AS $k => $item ):
+            $results = (array) $item;
+        endforeach;
+
+        return $results;
+    }
+
+    /**
      * Get Yearly Data by Player
      */
-    
     public function getSingleAvailablePlayerDataStats($id){
 
         $year_stats_data = DB::table('year_stats_data')
+            ->selectRaw('fid, role, name, team, pg, mv, ROUND(mf,2) AS mf, gf, gs, rp, rc, rf, rs, ass, amm, esp, au, year')
+            ->selectRaw('ROUND(gf+rf,0) AS gt')
             ->where('fid', $id)
             ->get();
         

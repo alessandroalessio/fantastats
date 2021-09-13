@@ -30,7 +30,7 @@ Route::get('/view-player-stats-data', function () {
 
 Route::get('/view-player-stats-data/{id}', function ($id) {
     $YSD = new YearsStatsData;
-    return view('view-single-player-stats')->with('player_data', $YSD->getSingleAvailablePlayer($id));
+    return view('view-single-player-stats')->with('player_data', $YSD->getSingleAvailablePlayer($id))->with('player_avg',  $YSD->getAvailableSinglePlayerStatsData($id));
 })->middleware(['auth'])->name('view-single-player-stats');
 
 /**

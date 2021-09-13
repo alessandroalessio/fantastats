@@ -17,8 +17,8 @@
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
                         <div class="bg-white text-center border-b-2 border-blue-300">
                             <a href="/view-player-stats-data" class="block py-10">
-                                {{ __('View Player Stats Data') }}
-                                <em class="block text-center text-xs">{{ __('View average stats data for players') }}</em>
+                                {{ __('players-stats.view-player-data') }}
+                                <em class="block text-center text-xs">{{ __('players-stats.view-player-data-desc') }}</em>
                             </a>
                         </div>
                     </div>    

@@ -32184,20 +32184,58 @@ select {
 .spezia{ background: #fff; color: #000; border: 1px solid  #A79565;
 }
 
-.torino{ background: #0471BC; color: #fff; border: 1px solid  #000;
+.torino{ background: #CA3134; color: #fff; border: 1px solid #fff;
 }
 
-.udinese{ background: #0471BC; color: #fff; border: 1px solid  #000;
+.udinese{ background: #000; color: #fff; border: 1px solid  #000;
 }
 
-.venezia{ background: #0471BC; color: #fff; border: 1px solid  #000;
+.venezia{ background: #000; color: rgb(255, 106, 7); border: 1px solid  rgb(1, 151, 46);
 }
 
-.verona{ background: #0471BC; color: #fff; border: 1px solid  #000;
+.verona{ background: #ffed66; color: #002E70; border: 1px solid  #002E70;
 }
 
-/* .atalanta{ background: #0471BC; color: #fff; border: 1px solid  #000; }
-.atalanta{ background: #0471BC; color: #fff; border: 1px solid  #000; } */
+.player-data-avg .label{
+  display: block;
+  text-transform: uppercase;
+  font-size: 0.7em;
+  letter-spacing: 0.1em;
+  padding-top: 1em;
+  color: #333;
+}
+
+.player-data-avg .value{
+  display: block;
+  font-size: 2em;
+  font-weight: 700;
+  padding-bottom: 1em;
+  color: #333;
+}
+
+.dataTables_wrapper .dataTables_filter label{
+  font-size: 0.8em;
+  line-height: 1em;
+}
+
+.dataTables_wrapper .dataTables_filter input{
+  font-size: 0.8em;
+  line-height: 1em;
+}
+
+.dataTables_wrapper .dataTables_length label{
+  font-size: 0.8em;
+}
+
+.dataTables_wrapper .dataTables_length select{
+  line-height: 1em;
+  padding: 4px 15px 4px 4px;
+  font-size: 0.8em;
+  background-position: right 0rem center;
+}
+
+table.dataTable.display tbody td { font-size: 0.9em;
+}
 
 @media (min-width: 640px) {
   .sm\:container {

@@ -1,14 +1,22 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('View Player Stats Data') }}
+            {{ __('players-stats.view-player-data') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
 
         <div class="max-w-7xl mx-auto mt-3 sm:px-6 lg:px-8">
-            <h2 class="text-xl text-gray-400 font-bold">{{ __('Players Data') }}</h2>
+            <h2 class="text-xl text-gray-400 font-bold">
+                {{ __('players-stats.player-data') }}
+                <div class="float-right">
+                    <a href="#" id="filter-position-p" class="filter-position" data-role="P">P</a>
+                    <a href="#" id="filter-position-d" class="filter-position" data-role="D">D</a>
+                    <a href="#" id="filter-position-c" class="filter-position" data-role="C">C</a>
+                    <a href="#" id="filter-position-a" class="filter-position" data-role="A">A</a>
+                </div>
+            </h2>
         </div>
 
         <div class="max-w-7xl mx-auto mt-3 sm:px-6 lg:px-8">
@@ -20,59 +28,50 @@
                                 <thead>
                                     <tr>
                                         <th>{{ __('R') }}</th>
-                                        <th>{{ __('Name') }}</th>
-                                        <th>{{ __('Team') }}</th>
-                                        <th>{{ __('Mp') }}</th>
-                                        <th>{{ __('Avg') }}</th>
-                                        <th>{{ __('FAvg') }}</th>
-                                        <th>{{ __('Gt') }}</th>
-                                        <th>{{ __('Gs') }}</th>
-                                        <th>{{ __('Gc') }}</th>
-                                        <th>{{ __('rp') }}</th>
-                                        <th>{{ __('rc') }}</th>
-                                        <th>{{ __('rf') }}</th>
-                                        <th>{{ __('rs') }}</th>
-                                        <th>{{ __('ass') }}</th>
-                                        <th>{{ __('amm') }}</th>
-                                        <th>{{ __('esp') }}</th>
-                                        <th>{{ __('au') }}</th>
+                                        <th>{{ __('players-stats.name') }}</th>
+                                        <th>{{ __('players-stats.team') }}</th>
+                                        <th>{{ __('players-stats.mp') }}</th>
+                                        <th>{{ __('players-stats.avg') }}</th>
+                                        <th>{{ __('players-stats.favg') }}</th>
+                                        <th>{{ __('players-stats.gt') }}</th>
+                                        <th>{{ __('players-stats.gf') }}</th>
+                                        <th>{{ __('players-stats.gs') }}</th>
+                                        <th>{{ __('players-stats.rp') }}</th>
+                                        <th>{{ __('players-stats.rc') }}</th>
+                                        <th>{{ __('players-stats.rf') }}</th>
+                                        <th>{{ __('players-stats.rs') }}</th>
+                                        <th>{{ __('players-stats.ass') }}</th>
+                                        <th>{{ __('players-stats.amm') }}</th>
+                                        <th>{{ __('players-stats.esp') }}</th>
+                                        <th>{{ __('players-stats.au') }}</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
-                                <tr>
+                                    <tr>
                                         <th>{{ __('R') }}</th>
-                                        <th>{{ __('Name') }}</th>
-                                        <th>{{ __('Team') }}</th>
-                                        <th>{{ __('Mp') }}</th>
-                                        <th>{{ __('Avg') }}</th>
-                                        <th>{{ __('FAvg') }}</th>
-                                        <th>{{ __('Gt') }}</th>
-                                        <th>{{ __('Gs') }}</th>
-                                        <th>{{ __('Gc') }}</th>
-                                        <th>{{ __('rp') }}</th>
-                                        <th>{{ __('rc') }}</th>
-                                        <th>{{ __('rf') }}</th>
-                                        <th>{{ __('rs') }}</th>
-                                        <th>{{ __('ass') }}</th>
-                                        <th>{{ __('amm') }}</th>
-                                        <th>{{ __('esp') }}</th>
-                                        <th>{{ __('au') }}</th>
+                                        <th>{{ __('players-stats.name') }}</th>
+                                        <th>{{ __('players-stats.team') }}</th>
+                                        <th>{{ __('players-stats.mp') }}</th>
+                                        <th>{{ __('players-stats.avg') }}</th>
+                                        <th>{{ __('players-stats.favg') }}</th>
+                                        <th>{{ __('players-stats.gt') }}</th>
+                                        <th>{{ __('players-stats.gf') }}</th>
+                                        <th>{{ __('players-stats.gs') }}</th>
+                                        <th>{{ __('players-stats.rp') }}</th>
+                                        <th>{{ __('players-stats.rc') }}</th>
+                                        <th>{{ __('players-stats.rf') }}</th>
+                                        <th>{{ __('players-stats.rs') }}</th>
+                                        <th>{{ __('players-stats.ass') }}</th>
+                                        <th>{{ __('players-stats.amm') }}</th>
+                                        <th>{{ __('players-stats.esp') }}</th>
+                                        <th>{{ __('players-stats.au') }}</th>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
                     </div>
                     
-                    <div class="bg-white overflow-hidden shadow-sm mt-5">
-                        <div class="bg-white border-b-2 border-blue-300 px-1 py-1">
-                            <span><strong>MP</strong>: Match Played</span>
-                            <span><strong>Avg</strong>: Average vote</span>
-                            <span><strong>FAvg</strong>: Fanta Average vote</span>
-                            <span><strong>Gs</strong>: Goal scored</span>
-                            <span><strong>Gc</strong>: Goal conceded</span>
-                            <span><strong>Ps</strong>: Goal conceded</span>
-                        </div>
-                    </div>
+                    @include('partials/legend')
                 </div>
             </div>
         </div>
