@@ -28,6 +28,11 @@ Route::get('/view-player-stats-data', function () {
     return view('view-player-stats-data')->with('YSD', $YSD);
 })->middleware(['auth'])->name('view-player-stats-data');
 
+Route::get('/view-player-stats-data/{id}', function ($id) {
+    $YSD = new YearsStatsData;
+    return view('view-single-player-stats')->with('player_data', $YSD->getSingleAvailablePlayer($id));
+})->middleware(['auth'])->name('view-single-player-stats');
+
 /**
  * Administration Routes
  */

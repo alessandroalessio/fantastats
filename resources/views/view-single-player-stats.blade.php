@@ -8,7 +8,11 @@
     <div class="py-12">
 
         <div class="max-w-7xl mx-auto mt-3 sm:px-6 lg:px-8">
-            <h2 class="text-xl text-gray-400 font-bold">{{ __('Players Data') }}</h2>
+            <h2 class="text-xl text-gray-400 font-bold">
+                {{ $player_data['name'] }}
+                <span class="float-right bg-{{ $player_data['color'] }}-600 px-2 text-white ml-3 rounded-full">{{ $player_data['role'] }}</span>
+                <span class="float-right {{ strtolower($player_data['team']) }}  px-4 rounded-md italic">{{ $player_data['team'] }}</span>
+            </h2>
         </div>
 
         <div class="max-w-7xl mx-auto mt-3 sm:px-6 lg:px-8">
@@ -16,16 +20,13 @@
                 <div class="w-full px-1">
                     <div class="bg-white overflow-hidden shadow-sm">
                         <div class="bg-white border-b-2 border-blue-300 px-3 py-3">
-                            <table id="view-player-stats-datatable" class="display" style="width:100%">
+                            <input type="hidden" id="player-fid" value="{{ $player_data['fid'] }}">
+                            <table id="view-single-player-stats-datatable" class="display" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>{{ __('R') }}</th>
-                                        <th>{{ __('Name') }}</th>
-                                        <th>{{ __('Team') }}</th>
                                         <th>{{ __('Mp') }}</th>
                                         <th>{{ __('Avg') }}</th>
                                         <th>{{ __('FAvg') }}</th>
-                                        <th>{{ __('Gt') }}</th>
                                         <th>{{ __('Gs') }}</th>
                                         <th>{{ __('Gc') }}</th>
                                         <th>{{ __('rp') }}</th>
@@ -40,13 +41,9 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                        <th>{{ __('R') }}</th>
-                                        <th>{{ __('Name') }}</th>
-                                        <th>{{ __('Team') }}</th>
                                         <th>{{ __('Mp') }}</th>
                                         <th>{{ __('Avg') }}</th>
                                         <th>{{ __('FAvg') }}</th>
-                                        <th>{{ __('Gt') }}</th>
                                         <th>{{ __('Gs') }}</th>
                                         <th>{{ __('Gc') }}</th>
                                         <th>{{ __('rp') }}</th>
@@ -60,17 +57,6 @@
                                     </tr>
                                 </tfoot>
                             </table>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white overflow-hidden shadow-sm mt-5">
-                        <div class="bg-white border-b-2 border-blue-300 px-1 py-1">
-                            <span><strong>MP</strong>: Match Played</span>
-                            <span><strong>Avg</strong>: Average vote</span>
-                            <span><strong>FAvg</strong>: Fanta Average vote</span>
-                            <span><strong>Gs</strong>: Goal scored</span>
-                            <span><strong>Gc</strong>: Goal conceded</span>
-                            <span><strong>Ps</strong>: Goal conceded</span>
                         </div>
                     </div>
                 </div>

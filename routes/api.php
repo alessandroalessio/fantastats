@@ -19,53 +19,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::get('/player-stats-data', function (Request $request) {
     // if ($request->ajax()) {
-        
-        /*
-        SELECT 
-            ypa.fid, ypa.role, ypa.name, ypa.team, 
-            (SELECT AVG(pg) FROM year_stats_data WHERE fid=ypa.fid) AS pg,
-            (SELECT AVG(mv) FROM year_stats_data WHERE fid=ypa.fid) AS mv,
-            (SELECT AVG(mf) FROM year_stats_data WHERE fid=ypa.fid) AS mf,
-            (SELECT AVG(gf) FROM year_stats_data WHERE fid=ypa.fid) AS gf,
-            (SELECT AVG(gs) FROM year_stats_data WHERE fid=ypa.fid) AS gs,
-            (SELECT AVG(rp) FROM year_stats_data WHERE fid=ypa.fid) AS rp,
-            (SELECT AVG(rc) FROM year_stats_data WHERE fid=ypa.fid) AS rc,
-            (SELECT AVG(rf) FROM year_stats_data WHERE fid=ypa.fid) AS rf,
-            (SELECT AVG(rs) FROM year_stats_data WHERE fid=ypa.fid) AS rs,
-            (SELECT AVG(ass) FROM year_stats_data WHERE fid=ypa.fid) AS ass,
-            (SELECT AVG(amm) FROM year_stats_data WHERE fid=ypa.fid) AS amm,
-            (SELECT AVG(esp) FROM year_stats_data WHERE fid=ypa.fid) AS esp,
-            (SELECT AVG(au) FROM year_stats_data WHERE fid=ypa.fid) AS au
-        FROM years_players_availables AS ypa
-        */
-        
-        $players = DB::table('years_players_availables AS ypa')
-            ->selectRaw('ypa.fid')
-            ->selectRaw('ypa.role')
-            ->selectRaw('ypa.name')
-            ->selectRaw('ypa.team')
-            ->selectRaw('(SELECT ROUND(AVG(pg),2) FROM year_stats_data WHERE fid=ypa.fid) AS pg')
-            ->selectRaw('(SELECT ROUND(AVG(mv),2) FROM year_stats_data WHERE fid=ypa.fid) AS mv')
-            ->selectRaw('(SELECT ROUND(AVG(mf),2) FROM year_stats_data WHERE fid=ypa.fid) AS mf')
-            ->selectRaw('(SELECT ROUND(AVG(gf),2) FROM year_stats_data WHERE fid=ypa.fid) AS gf')
-            ->selectRaw('(SELECT ROUND(AVG(gs),2) FROM year_stats_data WHERE fid=ypa.fid) AS gs')
-            ->selectRaw('(SELECT ROUND(AVG(rp),2) FROM year_stats_data WHERE fid=ypa.fid) AS rp')
-            ->selectRaw('(SELECT ROUND(AVG(rc),2) FROM year_stats_data WHERE fid=ypa.fid) AS rc')
-            ->selectRaw('(SELECT ROUND(AVG(rf),2) FROM year_stats_data WHERE fid=ypa.fid) AS rf')
-            ->selectRaw('(SELECT ROUND(AVG(rs),2) FROM year_stats_data WHERE fid=ypa.fid) AS rs')
-            ->selectRaw('(SELECT AVG(ass) FROM year_stats_data WHERE fid=ypa.fid) AS ass')
-            ->selectRaw('(SELECT AVG(esp) FROM year_stats_data WHERE fid=ypa.fid) AS esp')
-            ->selectRaw('(SELECT AVG(au) FROM year_stats_data WHERE fid=ypa.fid) AS au')
-            ->selectRaw('(SELECT AVG(gf)+AVG(rf) FROM year_stats_data WHERE fid=ypa.fid) AS gt')
-            ;
+        $params = [];
+        if ( $request->get('role')) $params['role'] = $request->get('role');
+        if ( $request->get('limit')) $params['limit'] = $request->get('limit');
 
-        if ( $request->get('role')) $players = $players->where('role', $request->get('role'));
-        if ( $request->get('limit')) $players = $players->limit(10);
-        
+        $YearsStatsData = new YearsStatsData();
+        $players = $YearsStatsData->getAvailablePlayersStatsData($params);
+
+        echo json_encode($players);
     // }
-    echo $players->get()->toJson();
 });
+
+Route::get('/single-player-stats-data/{id}', function (Request $request, $id) {
+    // if ($request->ajax()) {
+        $YearsStatsData = new YearsStatsData();
+        $players = $YearsStatsData->getSingleAvailablePlayerDataStats($id);
+        echo json_encode($players);
+    // }
+});
+
 
