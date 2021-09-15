@@ -34,6 +34,7 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="route('user-league')">{{ __('Your leagues') }}</x-dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

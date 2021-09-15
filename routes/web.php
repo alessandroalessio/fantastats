@@ -33,6 +33,14 @@ Route::get('/view-player-stats-data/{id}', function ($id) {
     return view('view-single-player-stats')->with('player_data', $YSD->getSingleAvailablePlayer($id))->with('player_avg',  $YSD->getAvailableSinglePlayerStatsData($id));
 })->middleware(['auth'])->name('view-single-player-stats');
 
+Route::get('/user-league', function () {
+    return view('user-league');
+})->middleware(['auth'])->name('user-league');
+
+Route::get('/add-new-user-league', function () {
+    return view('add-new-user-league');
+})->middleware(['auth'])->name('add-new-user-league');
+
 /**
  * Administration Routes
  */
