@@ -23,8 +23,9 @@
 
                             <!-- / UserLeaguesController@add -->
 
-                            {{ Form::open() }}
+                            {{ Form::open(array('route' => 'leagues.store', 'method' => 'POST')) }}
                                 {{ Form::token(); }}
+                                {{ Form::hidden('id_user', Auth::user()->id) }}
                                 <div class="flex mb-2">
                                     <div class="w-3/12">{{ Form::label('league_name', __('leagues.name')); }}</div>
                                     <div class="w-9/12">{{ Form::text('league_name') }}</div>
@@ -85,28 +86,11 @@
                                     <div class="w-3/12">{{ Form::label('portiere_imbattuto', __('leagues.portiere-imbattuto')); }}</div>
                                     <div class="w-9/12">{{ Form::number('portiere_imbattuto', 0, array('class' => 'w-20 text-center text-sm')) }}</div>
                                 </div>
+                                <div class="flex mb-2">
+                                    <div class="w-3/12">&nbsp;</div>
+                                    <div class="w-9/12">{{ Form::submit( __('common.add'), array('class' => 'bg-gradient-to-b from-blue-600 to-blue-800 text-indigo-50 rounded-full px-4 py-2 inline-block mt-2')); }}</div>
+                                </div>
                             {{ Form::close() }}
-
-
-
-                            <!-- /
-                        
-                            GOL SEGNATO	3	3	3	3
-GOL SUBITO	-1	-1	-1	-1
-RIGORE SEGNATO	3	3	3	3
-RIGORE SBAGLIATO	-3	-3	-3	-3
-RIGORE PARATO	3	3	3	3
-AMMONIZIONE	-0.5	-0.5	-0.5	-0.5
-ESPULSIONE	-1	-1	-1	-1
-AUTOGOL	-2	-2	-2	-2
-ASSIST INV 	0	0	0	0
-ASSIST SOFT 	1	1	1	1
-ASSIST	1	1	1	1
-ASSIST GOLD 	1	1	1	1
-GOL DECISIVO PAREGGIO	0	0	0	0
-GOL DECISIVO VITTORIA	0	0	0	0
-PORTIERE IMBATTUTO	0	
-                        -->
 
 
                             <!-- <div class="mb-5 text-right">

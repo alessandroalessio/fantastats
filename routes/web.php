@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExcelImporter;
+use App\Http\Controllers\LeaguesController;
 use App\Models\YearsStatsData;
 
 /*
@@ -14,6 +15,12 @@ use App\Models\YearsStatsData;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::resource('leagues', LeaguesController::class); 
+
+/*
+ * Navigation
+ */
 
 Route::get('/', function () {
     return view('welcome');
