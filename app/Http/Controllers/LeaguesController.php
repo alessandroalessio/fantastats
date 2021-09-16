@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Leagues;
 use Illuminate\Http\Request;
+use Auth;
 
 class LeaguesController extends Controller
 {
@@ -45,6 +46,7 @@ class LeaguesController extends Controller
         $League->goal_subito = $request->input('goal_subito');
         $League->rigore_segnato = $request->input('rigore_segnato');
         $League->rigore_sbagliato = $request->input('rigore_sbagliato');
+        $League->rigore_parato = $request->input('rigore_parato');
         $League->ammonizione = $request->input('ammonizione');
         $League->espulsione = $request->input('espulsione');
         $League->autogoal = $request->input('autogoal');
@@ -57,8 +59,9 @@ class LeaguesController extends Controller
         $League->id_user = $request->input('id_user');
         $League->save();
         // dd('store leagues');
-
-        return view('user-league');
+        
+        $Leagues = New Leagues();
+        return view('user-league')->with('FantaLeagues', $Leagues->where('id_user', Auth::user()->id)->get());
     }
 
     /**

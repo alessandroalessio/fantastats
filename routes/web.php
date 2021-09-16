@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExcelImporter;
 use App\Http\Controllers\LeaguesController;
 use App\Models\YearsStatsData;
+use App\Models\Leagues;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +42,8 @@ Route::get('/view-player-stats-data/{id}', function ($id) {
 })->middleware(['auth'])->name('view-single-player-stats');
 
 Route::get('/user-league', function () {
-    return view('user-league');
+    $Leagues = New Leagues();
+    return view('user-league')->with('FantaLeagues', $Leagues->where('id_user', Auth::user()->id)->get());
 })->middleware(['auth'])->name('user-league');
 
 Route::get('/add-new-user-league', function () {

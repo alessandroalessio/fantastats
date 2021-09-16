@@ -23,8 +23,14 @@
                             <div class="mb-5 text-right">
                                 <a href="/add-new-user-league" class="bg-gradient-to-b from-blue-600 to-blue-800 text-indigo-50 rounded-full px-4 py-2 inline-block mt-2">{{ __('common.add-new-league') }}</a>
                             </div>    
-
-                            You leagues
+                            <table>
+                                <?php
+                                foreach ($FantaLeagues as $league) { ?>
+                                    <tr>
+                                        <td>{{ $league->name }}</td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
                         </div>
                     </div>
                 </div>
