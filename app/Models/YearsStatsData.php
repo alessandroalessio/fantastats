@@ -40,7 +40,11 @@ class YearsStatsData extends Model
             ->selectRaw('(SELECT ROUND(AVG(gf)+AVG(rf),2) FROM year_stats_data WHERE fid=ypa.fid) AS gt');
 
         if ( isset($params['role']) ) $players->where('role', $params['role']);
-        if ( isset($params['limit']) ) $players->limit($params['limit']);
+
+        // Limit get
+        $limit = 25;
+        if ( isset($params['limit']) ) $limit = $params['limit'];
+        $players->limit($limit);
     
         $data = $players->get();
 
