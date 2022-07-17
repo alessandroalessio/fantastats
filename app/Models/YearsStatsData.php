@@ -15,6 +15,34 @@ class YearsStatsData extends Model
     public $incrementing = true;
 
     /**
+     * Get Totals of Available Players with Stats Data
+     */
+    public function getTotalsAvailablePlayersStatsData($params=[]){
+
+        $players = DB::table('years_players_availables AS ypa')
+            ->selectRaw('ypa.fid')
+            ->selectRaw('ypa.role')
+            ->selectRaw('ypa.name')
+            ->selectRaw('ypa.team')
+            ->selectRaw('(SELECT ROUND(AVG(pg),2) FROM year_stats_data WHERE fid=ypa.fid) AS pg')
+            ->selectRaw('(SELECT ROUND(AVG(mv),2) FROM year_stats_data WHERE fid=ypa.fid) AS mv')
+            ->selectRaw('(SELECT ROUND(AVG(mf),2) FROM year_stats_data WHERE fid=ypa.fid) AS mf')
+            ->selectRaw('(SELECT ROUND(AVG(gf),2) FROM year_stats_data WHERE fid=ypa.fid) AS gf')
+            ->selectRaw('(SELECT ROUND(AVG(gs),2) FROM year_stats_data WHERE fid=ypa.fid) AS gs')
+            ->selectRaw('(SELECT ROUND(AVG(rp),2) FROM year_stats_data WHERE fid=ypa.fid) AS rp')
+            ->selectRaw('(SELECT ROUND(AVG(rc),2) FROM year_stats_data WHERE fid=ypa.fid) AS rc')
+            ->selectRaw('(SELECT ROUND(AVG(rf),2) FROM year_stats_data WHERE fid=ypa.fid) AS rf')
+            ->selectRaw('(SELECT ROUND(AVG(rs),2) FROM year_stats_data WHERE fid=ypa.fid) AS rs')
+            ->selectRaw('(SELECT ROUND(AVG(ass),1) FROM year_stats_data WHERE fid=ypa.fid) AS ass')
+            ->selectRaw('(SELECT ROUND(AVG(amm),1) FROM year_stats_data WHERE fid=ypa.fid) AS amm')
+            ->selectRaw('(SELECT ROUND(AVG(esp),1) FROM year_stats_data WHERE fid=ypa.fid) AS esp')
+            ->selectRaw('(SELECT ROUND(AVG(au),1) FROM year_stats_data WHERE fid=ypa.fid) AS au')
+            ->selectRaw('(SELECT ROUND(AVG(gf)+AVG(rf),2) FROM year_stats_data WHERE fid=ypa.fid) AS gt');
+    
+        return $players->count();
+    }
+
+    /**
      * Get List of Available Players with Stats data
      */
     public function getAvailablePlayersStatsData($params=[]){
@@ -41,10 +69,21 @@ class YearsStatsData extends Model
 
         if ( isset($params['role']) ) $players->where('role', $params['role']);
 
-        // Limit get
+        // Offset
+        $offset = 0;
+        if ( isset($params['offset']) ) $offset = $params['offset'];
+        $players->offset($offset);
+
+        // Limit
         $limit = 25;
-        if ( isset($params['limit']) ) $limit = $params['limit'];
         $players->limit($limit);
+
+        // Search
+        if ( isset($params['search']) ) {
+            $players->where('ypa.name', 'LIKE', $params['search'].'%');
+            $players->offset(0);
+            $players->limit(25);
+        }
     
         $data = $players->get();
 
