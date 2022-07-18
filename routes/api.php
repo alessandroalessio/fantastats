@@ -49,6 +49,7 @@ Route::get('/single-player-stats-data/{id}', function (Request $request, $id) {
 Route::get('/v2/player-stats-data', function (Request $request) {
     $params = [];
     if ( $request->get('role')) $params['role'] = $request->get('role');
+    if ( $request->get('id')) $params['fid'] = $request->get('id');
 
     // Default
     $page = 1;
@@ -95,3 +96,14 @@ Route::get('/v2/player-stats-data', function (Request $request) {
             ->header('Content-Type', 'application/json');
 });
 
+
+Route::get('/v2/single-player-stats-data/{id}', function (Request $request, $id) {
+    // if ($request->ajax()) {
+        $YearsStatsData = new YearsStatsData();
+        $players = $YearsStatsData->getSingleAvailablePlayerDataStats($id);
+        
+        $content = $players;
+        return response( json_encode( $content ) )
+            ->header('Content-Type', 'application/json');
+    // }
+});

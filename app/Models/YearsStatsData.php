@@ -68,6 +68,7 @@ class YearsStatsData extends Model
             ->selectRaw('(SELECT ROUND(AVG(gf)+AVG(rf),2) FROM year_stats_data WHERE fid=ypa.fid) AS gt');
 
         if ( isset($params['role']) ) $players->where('role', $params['role']);
+        if ( isset($params['fid']) ) $players->where('ypa.fid', $params['fid']);
 
         // Offset
         $offset = 0;
@@ -173,6 +174,7 @@ class YearsStatsData extends Model
             ->selectRaw('fid, role, name, team, pg, mv, ROUND(mf,2) AS mf, gf, gs, rp, rc, rf, rs, ass, amm, esp, au, year')
             ->selectRaw('ROUND(gf+rf,0) AS gt')
             ->where('fid', $id)
+            ->orderBy('year', 'desc')
             ->get();
         
         return $year_stats_data;
