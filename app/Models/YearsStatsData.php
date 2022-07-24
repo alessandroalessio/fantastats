@@ -77,13 +77,13 @@ class YearsStatsData extends Model
 
         // Limit
         $limit = 25;
-        $players->limit($limit);
+        $players->limit($params['limit']);
 
         // Search
         if ( isset($params['search']) ) {
             $players->where('ypa.name', 'LIKE', $params['search'].'%');
             $players->offset(0);
-            $players->limit(25);
+            // $players->limit(25);
         }
     
         $data = $players->get();
@@ -93,7 +93,21 @@ class YearsStatsData extends Model
         if ($data) {
             foreach ( $data AS $k => $item ){
                 $itemData = (array) $item;
-                $itemData['url'] = '/view-player-stats-data/'.$item->fid;
+                $itemData['pg'] = floatval($item->pg);
+                $itemData['mv'] = floatval($item->mv);
+                $itemData['mf'] = floatval($item->mf);
+                $itemData['gf'] = floatval($item->gf);
+                $itemData['gs'] = floatval($item->gs);
+                $itemData['rp'] = floatval($item->rp);
+                $itemData['rc'] = floatval($item->rc);
+                $itemData['rf'] = floatval($item->rf);
+                $itemData['rs'] = floatval($item->rs);
+                $itemData['ass'] = floatval($item->ass);
+                $itemData['amm'] = floatval($item->amm);
+                $itemData['esp'] = floatval($item->esp);
+                $itemData['au'] = floatval($item->au);
+                $itemData['gt'] = floatval($item->gt);
+                // $itemData['url'] = '/view-player-stats-data/'.$item->fid;
                 array_push($results, $itemData);
             }
         }

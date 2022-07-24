@@ -64,7 +64,7 @@ Route::get('/v2/player-stats-data', function (Request $request) {
 
     if ( $request->get('perPage')){
         $params['limit'] = $request->get('perPage');
-        $limit = $params['perPage'];
+        $limit = $params['limit'];
     }
 
     if ( $page>1 ) {
@@ -85,11 +85,12 @@ Route::get('/v2/player-stats-data', function (Request $request) {
     $YearsStatsData = new YearsStatsData();
     
     $content['page'] = $page;
-    $content['per_page'] = $limit;
+    $content['per_page'] = intval($limit);
     $content['total'] = $YearsStatsData->getTotalsAvailablePlayersStatsData();
     $content['total_pages'] = round($content['total']/$limit, 0);
     
     $players = $YearsStatsData->getAvailablePlayersStatsData($params);
+    $content['total_request'] = count($players);
     $content['data'] = $players;
 
     return response( json_encode( $content ) )
