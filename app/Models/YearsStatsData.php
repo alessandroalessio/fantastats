@@ -86,6 +86,9 @@ class YearsStatsData extends Model
             // $players->limit(25);
         }
     
+        // echo '<pre style="background: #efefef; padding:1em; border:1px solid #ddd;">'; var_dump($players->toSql()); echo '</pre>';
+        // die();
+        $players->orderBy('mf', 'desc');
         $data = $players->get();
 
         // Pushing data into array
