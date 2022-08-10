@@ -59,6 +59,11 @@ Route::get('/import-year-stats-data', function () {
 })->middleware(['auth'])->name('import-year-stats-data');
 Route::post('/do-import-year-stats-data', [ExcelImporter::class, 'uploadFile'])->name('import-year-stats-data');
 
+Route::get('/import-year-stats-data-euroleghe', function () {
+    return view('admin/import-year-stats-data-euroleghe');
+})->middleware(['auth'])->name('import-year-stats-data-euroleghe');
+Route::post('/do-import-year-stats-data-euroleghe', [ExcelImporter::class, 'uploadFileEuroleghe'])->name('import-year-stats-data-euroleghe');
+
 Route::get('/import-year-players', function () {
     return view('admin/import-year-players');
 })->middleware(['auth'])->name('import-year-players');

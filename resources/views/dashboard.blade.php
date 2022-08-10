@@ -47,6 +47,16 @@
                     </div>
                     <div class="w-1/3 px-1">
                         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
+                            <div class="bg-white text-center border-b-2 border-blue-600">
+                                <a href="/import-year-stats-data-euroleghe" class="block py-10">
+                                    {{ __('Import Euroleghe Data') }}
+                                    <em class="block text-center text-xs">{{ __('Upload file with yearly stats for Euroleghe') }}</em>
+                                </a>
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="w-1/3 px-1">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
                             <div class="bg-white text-center border-b-2 border-green-600">
                                 <a href="/import-year-players" class="block py-10">
                                     {{ __('Import Players') }}
