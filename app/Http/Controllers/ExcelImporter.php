@@ -76,7 +76,7 @@ class ExcelImporter extends Controller
             $alert_class = 'alert-danger';
         }
 
-        return redirect('import-year-stats-data')->with(['message' => $message, 'alert_class' => $alert_class]);
+        return redirect('import-year-stats-data-euroleghe')->with(['message' => $message, 'alert_class' => $alert_class]);
     }
 
     public function readExcel($srcExcel, $year='2020-21'){
@@ -192,8 +192,8 @@ class ExcelImporter extends Controller
                 // $YearStasData = new YearsPlayersAvailable;
                 $YearStasData->fid = $item[0];
                 $YearStasData->role = $item[1];
-                $YearStasData->name = $item[2];
-                $YearStasData->team = $item[3];
+                $YearStasData->name = $item[3];
+                $YearStasData->team = $item[4];
                 $YearStasData->save();
             endif;
         endforeach;

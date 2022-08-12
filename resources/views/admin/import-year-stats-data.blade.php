@@ -16,6 +16,30 @@
                     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mt-3">
                         <strong>Attenzione:</strong> L'importazione attualmente non manda in output messaggi di successo
                     </div>
+                    <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 mt-3">
+                        <strong>Attenzione:</strong> Per la corretta importazione il formato deve essere:
+                            <table cellpadding="4">
+                                <tr>
+                                    <td>ID</td>
+                                    <td>Ruolo</td>
+                                    <td>Nome</td>
+                                    <td>Sq.</td>
+                                    <td>PG</td>
+                                    <td>MV</td>
+                                    <td>FM</td>
+                                    <td>GF</td>
+                                    <td>GS</td>
+                                    <td>RP</td>
+                                    <td>RC</td>
+                                    <td>RF</td>
+                                    <td>RS</td>
+                                    <td>ASS</td>
+                                    <td>AMM</td>
+                                    <td>ESP</td>
+                                    <td>AU</td>
+                                </tr>
+                            </table>
+                    </div>
                     <form action="/do-import-year-stats-data" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="grid grid-cols-6 gap-4 my-8">

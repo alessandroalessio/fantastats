@@ -47,6 +47,7 @@ Route::get('/single-player-stats-data/{id}', function (Request $request, $id) {
 // Routes 2022
 
 Route::get('/v2/player-stats-data', function (Request $request) {
+
     $params = [];
     if ( $request->get('role')) $params['role'] = $request->get('role');
     if ( $request->get('id')) $params['fid'] = $request->get('id');
@@ -93,9 +94,13 @@ Route::get('/v2/player-stats-data', function (Request $request) {
     $content['total_request'] = count($players);
     $content['data'] = $players;
 
-    return response( json_encode( $content ) )
-            ->header('Content-Type', 'application/json');
-});
+    // return response( json_encode( $content ) )
+    //         ->header('Content-Type', 'application/json')
+    //         ->header('Charset', 'utf-8');
+    return response()
+        ->json($content, 200, ['Content-type'=> 'application/json; charset=utf-8'], JSON_UNESCAPED_UNICODE);
+
+})->middleware('throttle:1000,1');
 
 
 Route::get('/v2/single-player-stats-data/{id}', function (Request $request, $id) {
@@ -104,7 +109,11 @@ Route::get('/v2/single-player-stats-data/{id}', function (Request $request, $id)
         $players = $YearsStatsData->getSingleAvailablePlayerDataStats($id);
         
         $content = $players;
-        return response( json_encode( $content ) )
-            ->header('Content-Type', 'application/json');
+        // return response( json_encode( $content ) )
+        //     ->header('Content-Type', 'application/json')
+        //     ->header('Charset', 'utf-8');
+        return response()
+            ->json($content, 200, ['Content-type'=> 'application/json; charset=utf-8'], JSON_UNESCAPED_UNICODE);
+
     // }
-});
+})->middleware('throttle:1000,1');
